@@ -1,6 +1,7 @@
 <template>
-  <div class="asset-button">
-    {{name}}
+  <div class="asset-button" v-on:click="$emit('asset-selected')">
+    <img :src="'../previews/256/' + name + '.png'"/>
+    <div class="title">{{name}}</div>
   </div>
 </template>
 
@@ -22,10 +23,24 @@ export default {
 <style scoped>
 
 .asset-button {
-  background: silver;
-  border: none;
-  height: 100%;
-  display: inline-block;
+  text-align: center;
+  padding: auto;
+  cursor: pointer;
+}
+
+.asset-button:hover {
+  background-color: #a0a0a0;
+}
+
+.asset-button img {
+  padding: 10px;
+  vertical-align: middle;
+  max-width: 7em;
+  max-height: 7em;
+}
+
+.asset-button .title {
+  width: 100%;
 }
 
 </style>

@@ -1,5 +1,11 @@
 <template>
   <div id="app">
+    <div class="logo-panel">
+      <img src="../public/itoki-logo.svg"/><br/>
+      POWERED BY
+      <img src="../public/logo.svg" style="max-width: 10em"/>
+    </div>    
+    
     <HelloWorld/>
   </div>
 </template>
@@ -16,14 +22,13 @@ export default {
 </script>
 
 <style>
-/* #app {
+#app {
   font-family: 'Avenir', Helvetica, Arial, sans-serif;
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
   text-align: center;
   color: #2c3e50;
-  margin-top: 60px;
-} */
+}
 
 html {
   padding: 0;
@@ -36,6 +41,15 @@ html {
 body {
   padding: 0;
   margin: 0;
+}
+
+.logo-panel {
+  position: absolute;
+  top: 0;
+  right: 0;
+  z-index: 5;
+  text-align: right;
+  padding: 20px;
 }
 
 </style>
