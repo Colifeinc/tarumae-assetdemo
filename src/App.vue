@@ -6,17 +6,17 @@
       <img src="../public/logo.svg" style="max-width: 10em"/>
     </div>    
     
-    <HelloWorld/>
+    <Index/>
   </div>
 </template>
 
 <script>
-import HelloWorld from './components/HelloWorld.vue'
+import Index from './components/Index.vue'
 
 export default {
   name: 'app',
   components: {
-    HelloWorld
+    Index
   }
 }
 </script>

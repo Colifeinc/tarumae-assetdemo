@@ -23,7 +23,7 @@ import ColorPicker from './ColorPicker.vue'
 import ModelViewer from "../viewer"
 
 export default {
-  name: 'HelloWorld',
+  name: 'Index',
   components: {
     ColorPicker,
     AssetButton
