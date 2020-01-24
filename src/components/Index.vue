@@ -12,6 +12,11 @@
     <div id="control-panel">
       <ColorPicker @color-selected="viewer.setColor(arguments[0])"/>
     </div>
+
+    <div id="theme-selection-panel">
+      <button href="#" v-on:click="viewer.switchToDarkMode()">Dark</button>
+      <button href="#" v-on:click="viewer.switchToLightMode()">Light</button>
+    </div>
   </div>
 </template>
 
@@ -86,6 +91,28 @@ export default {
   padding: 20px;
   margin: 0px;
   z-index: 20;
+}
+
+#theme-selection-panel {
+  position: absolute;
+  top: 0;
+  left: 10em;
+  padding: 20px;
+  margin: 0px;
+  z-index: 20;
+}
+
+#theme-selection-panel button {
+  border: 1px solid #888;
+  background-color: transparent;
+  border-radius: 5px;
+  margin-right: 7px;
+  cursor: pointer;
+  color: #888;
+}
+
+#theme-selection-panel button:focus {
+  outline: 0;
 }
 
 </style>

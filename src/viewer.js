@@ -1,6 +1,7 @@
 
-import Tarumae, { Vec3, Color3 } from "tarumae-viewer"
-import { hexToRgb } from "./utility"
+import Tarumae from "tarumae-viewer";
+import { Color3 } from "@jingwood/graphics-math";
+import { hexToRgb } from "./utility";
 
 export default class ModelViewer {
   constructor(models) {
@@ -13,6 +14,7 @@ export default class ModelViewer {
 
   init() {
     const renderer = new Tarumae.Renderer({
+      backgroundImage: "textures/bg-gray-gradient.jpg",
       enableShadow: true,
       shadowQuality: {
         scale: 2,
@@ -23,7 +25,7 @@ export default class ModelViewer {
         threshold: 0.25,
         gamma: 1.6,
       },
-      postprocess: {
+      renderingImage: {
         gamma: 1.0,
       },
     });
@@ -36,17 +38,22 @@ export default class ModelViewer {
     const ground = {
       mesh: new Tarumae.Shapes.PlaneMesh(3, 3),
       mat: {
-        color: [1, 1, 1],
-        //tex: "../static/textures/bg-gray-gradient.jpg"
+        // color: [1, 1, 1],
+        tex: "textures/bg-gray-gradient.jpg"
       },
-      angle: [0, 30, 0],
+      angle: [0, -20, 0],
     };
+    this.ground = ground;
     scene.load(ground);
+
+    renderer.createTextureFromURL("textures/bg-gray-gradient.jpg", tex => {
+      this.groundTex = tex;
+    });
   
     const holder = new Tarumae.SceneObject();
     scene.add(holder);
   
-    scene.onkeydown = function(key) {
+    scene.onkeydown = (key) => {
       if (key >= Tarumae.Viewer.Keys.D1
         && key <= Tarumae.Viewer.Keys.D9) {
         this.switchTo(key - Tarumae.Viewer.Keys.D1);
@@ -58,8 +65,14 @@ export default class ModelViewer {
         
       scene.createObjectFromURL("../models/" + mod.name + ".toba", obj => {
         mod.obj = obj;
-        // obj.location.x = 5;
         obj.visible = false;
+        
+        obj.eachChild(o => {
+          if (o.mat) {
+            o.mat.roughness = 1 - o.mat.glossy;
+          }
+        });
+
         ground.add(obj);
   
         if (this.firstObject) {
@@ -75,32 +88,19 @@ export default class ModelViewer {
     // light sources
   
     const lights = new Tarumae.SceneObject();
-  
+      
     const light1 = new Tarumae.PointLight();
-    light1.location.set(-3, 4, 2);
-    light1.mat.emission = 3;
+    light1.location.set(5, 7, 10);
+    light1.mat.emission = 10;
     lights.add(light1);
-        
+    
     const light2 = new Tarumae.PointLight();
-    light2.location.set(2, 3, 5);
-    light2.mat.emission = 3;
+    light2.location.set(-3, -6, 4);
+    light2.mat.emission = 10;
     lights.add(light2);
   
-    const light3 = new Tarumae.PointLight();
-    light3.location.set(2, 4, -5);
-    light3.mat.emission = 2;
-    lights.add(light3);
-  
-    const light4 = new Tarumae.PointLight();
-    light4.location.set(-3, 6, -4);
-    light4.mat.emission = 2;
-    lights.add(light4);
-  
     scene.add(lights);
-  
-    scene.sun.mat.color = [0.45, 0.45, 0.45];
-  
-    // new Tarumae.TouchController(scene);
+
     const objController = new Tarumae.ObjectViewController(scene, {
       enableVerticalRotation: true,
       minVerticalRotateAngle: -10,
@@ -109,14 +109,14 @@ export default class ModelViewer {
     objController.object = ground;
   
     const cubebox = new Tarumae.ImageCubeBox(renderer, [
-      "../textures/office-cubemap/px.jpg",
-      "../textures/office-cubemap/nx.jpg",
-      "../textures/office-cubemap/py.jpg",
-      "../textures/office-cubemap/ny.jpg",
-      "../textures/office-cubemap/pz.jpg",
-      "../textures/office-cubemap/nz.jpg",
+      "textures/office-cubemap/px.jpg",
+      "textures/office-cubemap/nx.jpg",
+      "textures/office-cubemap/py.jpg",
+      "textures/office-cubemap/ny.jpg",
+      "textures/office-cubemap/pz.jpg",
+      "textures/office-cubemap/nz.jpg",
     ]);
-          
+ 
     cubebox.on('load', _ => {
       window.refmap = cubebox.cubemap;
       if (window.obj) {
@@ -144,7 +144,6 @@ export default class ModelViewer {
         this.scene.animate({ duration: 0.2 }, t => {
           const s = (0.9 - t);
           prevObj.scale.set(s, s, s);
-          // prevObj.opacity = 1 - t;
         }, _ => prevObj.visible = false);
       }
     }
@@ -155,9 +154,6 @@ export default class ModelViewer {
     if (mod && mod.obj) {
       const nextObj = mod.obj;
       
-      // if (mod.scale) {
-      //   nextObj.scale.set(mod.scale[0], mod.scale[1], mod.scale[2]);
-      // }
       window.obj = nextObj;
 
       if (mod.color && !mod.shown) {
@@ -171,10 +167,6 @@ export default class ModelViewer {
       this.scene.animate({ effect: "fadein", duration: 0.2 }, t => {
         const s = t;
         obj.scale.set(s, s, s);
-        // nextObj.opacity = t;
-      });
-      this.scene.animate({ effect: "fadeout" }, t => {
-        // nextObj.angle.y = -(1 - t) * 500 + 25;
       });
     }
   }
@@ -189,6 +181,18 @@ export default class ModelViewer {
       }
     });
 
+    this.scene.requireUpdateFrame();
+  }
+
+  switchToDarkMode() {
+    this.renderer.options.backgroundImage = "textures/bg-gray-gradient.jpg";
+    this.ground.mat.tex = this.groundTex;
+    this.scene.requireUpdateFrame();
+  }
+
+  switchToLightMode() {
+    this.renderer.options.backgroundImage = undefined;
+    this.ground.mat.tex = undefined;
     this.scene.requireUpdateFrame();
   }
 }

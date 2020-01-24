@@ -50,6 +50,7 @@ body {
   z-index: 5;
   text-align: right;
   padding: 20px;
+  font-size: smaller;
 }
 
 </style>

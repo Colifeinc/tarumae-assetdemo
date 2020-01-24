@@ -715,6 +715,11 @@
     cssnano-preset-default "^4.0.0"
     postcss "^7.0.0"
 
+"@jingwood/graphics-math@^1.0.2":
+  version "1.0.2"
+  resolved "https://registry.yarnpkg.com/@jingwood/graphics-math/-/graphics-math-1.0.2.tgz#df2e3b50e8f181de6ccb0cde54a37522e4512f7a"
+  integrity sha512-531n7rYIiAG0k+9iDp1+h/NyC2COea1hgsyX/JlFiOuc+dCuVW8vKcclU5zLvAugGGAYUFNMictQFoIaxWxihA==
+
 "@mrmlnc/readdir-enhanced@^2.2.1":
   version "2.2.1"
   resolved "https://registry.yarnpkg.com/@mrmlnc/readdir-enhanced/-/readdir-enhanced-2.2.1.tgz#524af240d1a360527b730475ecfa1344aa540dde"
@@ -7688,10 +7693,11 @@ tar@^4:
     yallist "^3.0.3"
 
 tarumae-viewer@^1.4.7:
-  version "1.4.10"
-  resolved "https://registry.yarnpkg.com/tarumae-viewer/-/tarumae-viewer-1.4.10.tgz#7bbfacfc774d81532b12c1ee31b01e58740ba894"
-  integrity sha512-3ImQ4YAH1PQBlFwBafpQlOceGqgHNwjjf3fNfBFV0nolBC9JGdOp5XSBpwXJDYaxDiY/AExhBJKzVAWxhXvWnA==
+  version "1.5.6"
+  resolved "https://registry.yarnpkg.com/tarumae-viewer/-/tarumae-viewer-1.5.6.tgz#6fa13b542051f97efaf5c072ba17951394057332"
+  integrity sha512-phfQHTrTwIutf+wHgn6/Y24Wr5DJfhx16iMQSxxhh6RZgig2Xhh8RpVFJBS/9RaZiDXtOIi4eBMSK8heHFeZMQ==
   dependencies:
+    "@jingwood/graphics-math" "^1.0.2"
     babel-polyfill "^6.26.0"
     pako "^1.0.6"
 

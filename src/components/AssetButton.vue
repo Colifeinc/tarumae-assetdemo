@@ -41,6 +41,7 @@ export default {
 
 .asset-button .title {
   width: 100%;
+  color: #888;
 }
 
 </style>
