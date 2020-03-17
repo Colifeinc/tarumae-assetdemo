@@ -22,8 +22,8 @@ export default class ModelViewer {
         resolution: 4096,
       },
       bloomEffect: {
-        threshold: 0.25,
-        gamma: 1.6,
+        threshold: 0.2,
+        gamma: 1.4,
       },
       renderingImage: {
         gamma: 1.0,
