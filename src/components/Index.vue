@@ -3,9 +3,8 @@
     <div id="canvas-container"></div>
     
     <ul id="asset-list-panel">
-      <li v-for="(item, index) in models">
-        <AssetButton :name="item.name" 
-          @asset-selected="viewer.switchTo(index)"/>
+      <li v-for="(item, index) in models" :key='index'>
+        <AssetButton :name="item.name" @asset-selected="viewer.switchTo(index)"/>
       </li>
     </ul>
 
